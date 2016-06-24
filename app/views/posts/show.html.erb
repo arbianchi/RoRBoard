@@ -1,0 +1,27 @@
+
+<h2><%= @post.title%></h2>
+
+
+<h3><%= @post.content%></h3>
+
+
+<table class="table table-hover table-striped table-condensed">
+  <thead>
+    <tr>
+      <th><h4>Comments: <span class="badge"><%= @post.comments.count %></span></h4></th>
+      <th>Author</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @post.comments.each do |comment| %>
+      <tr>
+        <td><%= comment.content %></td>
+        <td><%= User.find(comment.user_id).email %></td>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%# <%= link_to "Make a Comment", new_board_post_comment_path(@board,@post), class: "btn btn-default" %1> %>

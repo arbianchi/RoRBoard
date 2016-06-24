@@ -1,0 +1,10 @@
+
+<h1>Make a Post</h1>
+
+<%= bootstrap_form_for @post, url: board_posts_path do |f| %>
+  <%= f.text_field :title%>
+  <%= f.text_field :content%>
+  <%= f.hidden_field :user_id, value: current_user.id%>
+  <%= f.hidden_field :board_id, value: @board.id%>
+  <button class="btn btn-primary">Post</button>
+<% end %>
