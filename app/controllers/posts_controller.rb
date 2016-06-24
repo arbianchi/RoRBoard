@@ -1,50 +1,42 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, except: [:show, :edit, :update, :destroy]
 
   def index
     @posts = Post.all
   end
 
-  # GET /posts/1
-  # GET /posts/1.json
-  def show
-  end
-
-  # GET /posts/new
   def new
-    @board = board.find(params[:board_id])
-    @post = Post.new
+    @board = Board.find(params[:board_id])
+    @post = @board.posts.new user_id: current_user.id
+    # authorize @post
   end
 
-  # GET /posts/1/edit
+  def create
+    @board = Board.find(params[:board_id])
+    @post = @board.posts.new post_params
+    # authorize @post
+    if @post.save
+      flash[:notice] = "Posted!"
+      redirect_to @board
+    else
+      render :new
+    end
+  end
+
   def edit
   end
 
-  # POST /posts
-  # POST /posts.json
-  def create
-    @board = board.find(params[:board_id])
-    @post = current_user.posts.new(post_params)
-
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to board_post_path(@board,@post), notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
+  def show
+    @post = Post.find(params[:id])
+    # authorize @post
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
+  def set_post
+    @post = Post.find(params[:board_id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_params
-      params.require(:post).permit(:title, :content, :board_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def post_params
+    params.require(:post).permit(:title, :content,:user_id, :board_id)
+  end
 end
