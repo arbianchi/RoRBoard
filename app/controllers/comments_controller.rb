@@ -6,13 +6,17 @@ class CommentsController < ApplicationController
   end
 
   def new
-    # @comment = current_user.comments.new(comment_params)    # authorize @comment
-    @comment = @post.comments.new(user_id: current_user.id)  
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.new(user_id: current_user.id, post_id: @post.id)    # authorize @comment
   end
 
 
   def create
-    @comment = @post.comments.new comment_params
+      @comment = Comment.new(
+        comment: params[:comment][:comment],
+        user_id: current_user.id,
+        post_id: params[:post_id]
+      )
     # authorize @comment
     if @comment.save
       flash[:notice] = "commented!"
@@ -37,6 +41,6 @@ class CommentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def comment_params
-    params.require(:comment).permit(:title, :content,:user_id)
+    params.require(:comment).permit(:title, :post_id, :content,:user_id)
   end
 end
