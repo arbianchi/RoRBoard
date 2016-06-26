@@ -4,10 +4,8 @@ Rails.application.routes.draw do
   root 'boards#index'
 
   resources :boards do
-    resources :posts do
+    resources :posts, except: [:index], shallow: true do
       resources :comments, shallow: true do
-        resources :votes, shallow: true
-
       end
     end
   end

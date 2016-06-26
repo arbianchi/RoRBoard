@@ -17,11 +17,11 @@
       <tr>
         <td><%= comment.content %></td>
         <td><%= User.find(comment.user_id).email %></td>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
 </table>
 
-
-<%# <%= link_to "Make a Comment", new_board_post_comment_path(@board,@post), class: "btn btn-default" %1> %>
+<h4>Make a comment</h4>
+<%= link_to "Comment", new_post_comment_path(@post),class: "btn btn-default"%>

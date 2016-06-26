@@ -1,0 +1,9 @@
+
+<h4>Make a comment</h4>
+
+<%= bootstrap_form_for @comment, url: post_comments_path(@post) do |f| %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :user_id, value: current_user.id%>
+  <%= f.hidden_field :post_id, value: @post.id%>
+  <button class="btn btn-primary">Submit</button>
+<% end %>
