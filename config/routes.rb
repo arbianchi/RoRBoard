@@ -17,4 +17,6 @@ Rails.application.routes.draw do
       put "downvote", to: "post#downvote"
     end
   end
+
+  get "/sandbox/counter" => "sandbox#counter"
 end
