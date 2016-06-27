@@ -1,5 +1,4 @@
 
-
 $(document).ready(function() {
   now = new Date();
   var date = now.toLocaleDateString();
@@ -36,10 +35,15 @@ var resetCounter = (function(){
   $(".log").append( entry )
 });
 
+var clearLog = (function(){
+  $(".log").empty()
+})
+
 
 
 $("#up").click( incrementCounter )
 $("#down").click( decrementCounter )
 $("#reset").click( resetCounter )
+$("#clear").click( clearLog)
 
 })
