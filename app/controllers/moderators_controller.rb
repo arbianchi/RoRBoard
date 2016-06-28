@@ -1,4 +1,6 @@
 class ModeratorsController < ApplicationController
+  # before_action :set_board, except: [:show, :edit, :update, :destroy]
+
   def index
     @mods = Moderator.order(:board_id)
     authorize @mods
@@ -40,6 +42,10 @@ class ModeratorsController < ApplicationController
   end
 
   private
+
+  def set_board 
+    @board = Board.find(params[:board_id])
+  end
 
   def approved_params
     params.require(:moderator).permit(:user, :board_id)

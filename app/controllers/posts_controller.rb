@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_board, except: [:show, :edit, :update, :destroy]
-
+  before_action :set_board, except: [:destroy, :new, :edit, :update, :show] 
   def index
     @posts = Post.all
   end
@@ -21,19 +20,6 @@ class PostsController < ApplicationController
     else
       render :new
     end
-  end
-
-
-  def upvote
-    @post = Post.find(params[:id])
-    @post.upvote_by current_user
-    redirect_to post_path(@post)
-  end
-
-  def downvote
-    @post = Post.find(params[:id])
-    @post.downvote_by current_user
-    redirect_to post_path(@post)
   end
 
   def edit

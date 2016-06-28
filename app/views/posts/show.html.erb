@@ -15,12 +15,19 @@
   <tbody>
     <% @post.comments.each do |comment| %>
       <tr>
-        <td><%= comment.content %></td>
-        <td><%= User.find(comment.user_id).email %></td>
-      </td>
-    </tr>
-  <% end %>
-</tbody>
+        <td><%= comment.content %>
+          <%= link_to comment_vote_path(comment, vote: 1), method: :post do %> 
+            <span class="glyphicon glyphicon-upload"></span>
+          <%end%>
+          <%= link_to comment_vote_path(comment, vote: -1), method: :post do %> 
+            <span class="glyphicon glyphicon-download"></span>
+          <%end%>
+          </td>
+          <td><%= User.find(comment.user_id).email %></td>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <h4>Make a comment</h4>

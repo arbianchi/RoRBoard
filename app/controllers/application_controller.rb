@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
-  after_action :verify_authorized, unless: :devise_controller?
+  # after_action :verify_authorized, unless: :devise_controller?, except: :index
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   protect_from_forgery with: :exception
@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
    rescue_from Pundit::NotAuthorizedError do |e|
      flash[:danger] = "NO!"
-     redirect_to "/"
+     redirect_to "/users/sign_in"
    end
 
    protected

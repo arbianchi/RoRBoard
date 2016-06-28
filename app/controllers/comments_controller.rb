@@ -39,6 +39,15 @@ class CommentsController < ApplicationController
     end
   end
 
+  def vote
+    @comment = Comment.find params[:id]
+    vote = Vote.new(user_id: current_user.id, comment_id: @comment.id, value: params[:value])
+    if vote.save!
+      redirect_to @comment.post
+    else
+
+  end
+
   def destroy
     @comment = Comment.find params[:id]
     authorize @comment
@@ -59,7 +68,7 @@ class CommentsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:post_id])
-
+    
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

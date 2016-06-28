@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :comments
-  has_many :votes, through: :comments
+  has_many :votes
   belongs_to :boards
   has_many :posts
 

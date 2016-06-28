@@ -7,13 +7,15 @@
     <tr>
       <th>Post Title</th>
       <th>Author</th>
+      <th>Comments</th>
     </tr>
   </thead>
   <tbody>
     <% @board.posts.each do |post| %>
       <tr>
-        <td><%= link_to post.title, post_path(@board) %> <span class="badge"><%= post.comments.count %></span></td>
+        <td><%= link_to post.title, post_path(@board) %></td>
         <td><%= User.find(post.user_id).email %></td>
+        <td><span class="badge"><%= post.comments.count %></span></td>
         </td>
       </tr>
     <% end %>
