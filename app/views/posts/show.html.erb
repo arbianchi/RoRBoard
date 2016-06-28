@@ -18,13 +18,16 @@
       <tr>
         <td><%= comment.content %>
           <%= link_to comment_vote_path(comment, value: 1), method: :post do %> 
-            <span class="glyphicon glyphicon-upload"></span>
+            <span class="glyphicon glyphicon-upload up-btn"></span>
           <%end%>
           <%= link_to comment_vote_path(comment, value: -1), method: :post do %> 
             <span class="glyphicon glyphicon-download"></span>
           <%end%>
-          </td>
-          <td><%= Vote.where(comment_id: comment.id).pluck(:value).flatten.reduce(:+) %>
+          <%# <a href="#" class="btn btn-danger btn-xs done-btn"> %>
+          <%#   Done %>
+          <%# </a> %>
+        </td>
+        <td><%= Vote.where(comment_id: comment.id).pluck(:value).flatten.reduce(:+) %>
           <td><%= User.find(comment.user_id).email %></td>
         </td>
       </tr>

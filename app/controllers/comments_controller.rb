@@ -43,9 +43,13 @@ class CommentsController < ApplicationController
     @comment = Comment.find params[:comment_id]
     vote = Vote.new(user_id: current_user.id, comment_id: @comment.id, value: params[:value])
     if vote.save!
-      redirect_to @comment.post
+      # redirect_to @comment.post
     else
       render @comment.post 
+    end
+    respond_to do |format|
+      format.html { redirect_to :back, notice: "done!" }
+      format.json { render json: { status: :ok, message: vote } }
     end
 
   end
