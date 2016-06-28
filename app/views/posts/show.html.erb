@@ -17,10 +17,10 @@
     <% @post.comments.each do |comment| %>
       <tr>
         <td><%= comment.content %>
-          <%= link_to comment_vote_path(@post,comment, value: 1), method: :post do %> 
+          <%= link_to comment_vote_path(comment, value: 1), method: :post do %> 
             <span class="glyphicon glyphicon-upload"></span>
           <%end%>
-          <%= link_to comment_vote_path(@post,comment, value: -1), method: :post do %> 
+          <%= link_to comment_vote_path(comment, value: -1), method: :post do %> 
             <span class="glyphicon glyphicon-download"></span>
           <%end%>
           </td>
