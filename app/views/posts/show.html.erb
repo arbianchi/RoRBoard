@@ -9,6 +9,7 @@
   <thead>
     <tr>
       <th><h4>Comments: <span class="badge"><%= @post.comments.count %></span></h4></th>
+      <th>Score</th>
       <th>Author</th>
     </tr>
   </thead>
@@ -16,13 +17,14 @@
     <% @post.comments.each do |comment| %>
       <tr>
         <td><%= comment.content %>
-          <%= link_to comment_vote_path(comment, vote: 1), method: :post do %> 
+          <%= link_to comment_vote_path(@post,comment, value: 1), method: :post do %> 
             <span class="glyphicon glyphicon-upload"></span>
           <%end%>
-          <%= link_to comment_vote_path(comment, vote: -1), method: :post do %> 
+          <%= link_to comment_vote_path(@post,comment, value: -1), method: :post do %> 
             <span class="glyphicon glyphicon-download"></span>
           <%end%>
           </td>
+          <td><%= Vote.where(comment_id: comment.id).pluck(:value).flatten.reduce(:+) %>
           <td><%= User.find(comment.user_id).email %></td>
         </td>
       </tr>

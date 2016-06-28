@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_post, except: [:edit, :update, :destroy]
+  before_action except: [:edit, :update, :destroy]
 
   def index
     @comments = Comment.all
@@ -40,11 +40,13 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    @comment = Comment.find params[:id]
+    @comment = Comment.find params[:comment_id]
     vote = Vote.new(user_id: current_user.id, comment_id: @comment.id, value: params[:value])
     if vote.save!
       redirect_to @comment.post
     else
+      render @comment.post 
+    end
 
   end
 
@@ -53,7 +55,7 @@ class CommentsController < ApplicationController
     authorize @comment
     if @comment.delete
       flash[:notice] = "Post deleted!"
-      redirect to @comment.post
+      redirect_to @comment.post
     else
       redirect_to @comment.post
     end
@@ -65,11 +67,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-  def set_post
-    @post = Post.find(params[:post_id])
-    
-  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def comment_params
