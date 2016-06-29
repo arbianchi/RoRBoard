@@ -54,6 +54,16 @@ class CommentsController < ApplicationController
 
   end
 
+  def score
+    comment = Comment.find params[:comment_id]
+    total = Vote.where(comment_id: comment.id).pluck(:value).flatten.reduce(:+)
+
+    respond_to do |format|
+      format.html { redirect_to :back, notice: "done!" }
+      format.json { render json: { status: :ok, message: total} }
+    end
+  end
+
   def destroy
     @comment = Comment.find params[:id]
     authorize @comment

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :posts, except: [:index], shallow: true do
       resources :comments, shallow: true do
         post :vote
+        get :score
       end
     end
   end
